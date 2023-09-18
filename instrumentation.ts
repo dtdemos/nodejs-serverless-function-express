@@ -24,7 +24,9 @@ const exporter = new OTLPTraceExporter({
 // Send spans to the exporter endpoint
 // AND the console
 provider.addSpanProcessor(new SimpleSpanProcessor(exporter));
-provider.addSpanProcessor(new SimpleSpanProcessor(new ConsoleSpanExporter()));
+
+// enable for Otel debugging
+//provider.addSpanProcessor(new SimpleSpanProcessor(new ConsoleSpanExporter()));
 
 provider.register();
 
