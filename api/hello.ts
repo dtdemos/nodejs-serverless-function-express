@@ -9,14 +9,15 @@ function doThis(parentSpan, i) {
 
   // Get active context
   // Will be used when child span is created
+  console.log(new Date().toUTCString() + ", Starting child span")
   const ctx = opentelemetry.trace.setSpan(opentelemetry.context.active(), parentSpan);
 
-  const childSpan = tracer.startSpan(`doThis${i}`, undefined, ctx);
-  console.log(`Doing this... ${i}`);
+  const childSpan = tracer.startSpan(new Date().toUTCString() + `, doThis${i}`, undefined, ctx);
+  console.log(`Doing work within childSpan ${i}`);
 
   childSpan.addEvent(`childSpan${i} event`, {
     // Dynatrace will see 'exception.message' a valid span event
-    'exception.message': `some childSpan${i} event message`,
+    'exception.message': `Example childSpan ${i} event message`,
   }); 
 
   childSpan.end();
@@ -33,6 +34,7 @@ export default function handler(req: VercelRequest, res: VercelResponse) {
   });
 
   // Start the outer "parent" span
+  console.log(new Date().toUTCString() + ", Starting parent span")
   const parentSpan = tracer.startSpan('parent-span');
 
   // set some span attributes
@@ -49,6 +51,8 @@ export default function handler(req: VercelRequest, res: VercelResponse) {
 
   // End the parent span
   parentSpan.end()
+  console.log(new Date().toUTCString() + ", Ended parent span")
+
 }
 
 /*
