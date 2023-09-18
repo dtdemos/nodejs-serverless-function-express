@@ -2,13 +2,14 @@ import { BasicTracerProvider, ConsoleSpanExporter, SimpleSpanProcessor } from '@
 import { OTLPTraceExporter } from '@opentelemetry/exporter-trace-otlp-proto';
 const { Resource } = require('@opentelemetry/resources');
 const { SemanticResourceAttributes } = require('@opentelemetry/semantic-conventions');
+const logger = require('./logger');
 
 // enable for Otel debugging
 //import { diag, DiagConsoleLogger, DiagLogLevel } from '@opentelemetry/api';
 //diag.setLogger(new DiagConsoleLogger(), DiagLogLevel.DEBUG);
 
 const exporterUrl = process.env.EXPORTER_URL;
-console.log('exporterUrl = ' + exporterUrl)
+logger.info("exporterUrl = " + exporterUrl)
 
 const provider = new BasicTracerProvider({
   resource: new Resource({

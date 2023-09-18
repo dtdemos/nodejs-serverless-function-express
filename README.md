@@ -33,3 +33,4 @@ vercel dev
 
 https://nextjs.org/docs/pages/building-your-application/optimizing/open-telemetry
 
+https://betterstack.com/community/guides/logging/platforms/vercel-logging/
