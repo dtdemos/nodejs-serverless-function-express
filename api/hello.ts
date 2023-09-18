@@ -52,7 +52,7 @@ export default function handler(req: VercelRequest, res: VercelResponse) {
 
   // End the parent span
   parentSpan.end()
-  logger.info("Ended parent span")
+    logger.info("Ended parent span")
 
 }
 
