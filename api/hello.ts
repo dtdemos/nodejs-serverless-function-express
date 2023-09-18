@@ -14,7 +14,7 @@ function doThis(parentSpan, i) {
   const ctx = opentelemetry.trace.setSpan(opentelemetry.context.active(), parentSpan);
 
   const childSpan = tracer.startSpan(new Date().toUTCString() + `, doThis${i}`, undefined, ctx);
-  logger.info(`, Doing work within childSpan ${i}`);
+  logger.info(`Doing work within childSpan ${i}`);
 
   childSpan.addEvent(`childSpan${i} event`, {
     // Dynatrace will see 'exception.message' a valid span event
