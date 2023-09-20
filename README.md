@@ -39,24 +39,6 @@ If running on a VM, then expose as public IP and port `4318`
     ./otelcol --config config.yaml
     ```
 
-## OpenTelemetry Project Setup - Locally
-
-Add a file called `.env.local` with either of the following.
-
-Local OpenTelemetry Collector
-```
-EXPORTER_URL=http://localhost:4318/v1/traces
-```
-
-Remote OpenTelemetry Collector on a VM
-```
-EXPORTER_URL=http://W.X.Y.Z:4318/v1/traces
-```
-
-## OpenTelemetry Project Setup within Vercel
-
-When running in Vercel, goto the project settings.  Under environment variables, add one called `EXPORTER_URL` with the Remote VM endpoint.
-
 ## Running locally
 
 1. Install the Vercel CLI:
@@ -65,7 +47,19 @@ When running in Vercel, goto the project settings.  Under environment variables,
     npm i -g vercel
     ```
 
-1. Clone this repo and follow the steps from the `OpenTelemetry Project Setup` section above
+1. Fork this repo
+
+1. Add a file called `.env.local` with either of the following.
+
+    Local OpenTelemetry Collector
+    ```
+    EXPORTER_URL=http://localhost:4318/v1/traces
+    ```
+
+    Remote OpenTelemetry Collector on a VM
+    ```
+    EXPORTER_URL=http://W.X.Y.Z:4318/v1/traces
+    ```
 
 1. Then run the app at the root of the repository:
 
@@ -73,7 +67,7 @@ When running in Vercel, goto the project settings.  Under environment variables,
     vercel dev
     ```
 
-1. Send in in request and you should see `{"message":"Hello Dynatrace User!"}` as the response
+1. Send in request and you should see `{"message":"Hello Dynatrace User!"}` as the response.
 
     ```bash
     curl http://localhost:3000/api/hello && echo ""
@@ -83,6 +77,22 @@ When running in Vercel, goto the project settings.  Under environment variables,
 
 1. Verify traces are viewable in the Dynatrace distribute traces page
 
+
+## OpenTelemetry Project Setup within Vercel
+
+1. In your vercel account, add a new project using an import of the forked local project. local project should be fully committed in github. 
+
+1. In Vercel, goto the project settings.  Under environment variables, add one called `EXPORTER_URL` with the Remote VM endpoint.
+
+1. Using your Vecel public app endpoint, send in request and you should see `{"message":"Hello Dynatrace User!"}` as the response.
+
+    Example:
+
+    ```bash
+    curl https://nodejs-serverless-function-express-ABCDEF.vercel.app/api/hello && echo ""
+    ```
+
+1. Any new local commits, should trigger a new Vercel build and deploy.
 
 # Reference
 
